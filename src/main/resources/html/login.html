@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <link rel="stylesheet" href="login.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    </head>
+    <body>
+        <!-- Rounded corners wrapper -->
+        <div class="container" id="rounded-corners">
+            <!-- Exit button -->
+            <div class="container" align="right"><button class="buttonmargin btn btn-danger" onclick="java.exit()">X</button></div>
+
+            <!-- Gap between main and top -->
+            <div id="top-gap"></div>
+
+            <!-- Logo -->
+            <img class="img-responsive center-block" src="logo.png" />
+
+            <!-- Gap between main and top -->
+            <div id="form-gap"></div>
+
+            <!-- Login form -->
+            <div align="center">
+                <form style="max-width: 400px">
+                    <div class="form-group">
+                        <input id="username" class="form-control input-box" placeholder="Username/Email" />
+                    </div>
+                    <div class="form-group">
+                        <input id="password" type="password" class="form-control input-box" placeholder="Password" />
+                    </div>
+                    <div class="form-group" align="right">
+                        <button class="btn btn-primary">Login!</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

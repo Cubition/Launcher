@@ -2,6 +2,7 @@ package net.cubition.launcher;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * The Cubition Launcher eases the login and Bootstrap process for the Client. This class specifically
@@ -13,7 +14,6 @@ public class Launcher {
     private File bootstrapDest = new File(destinationRoot, "bootstrap.jar");
     private File modDirDest = new File(destinationRoot, "mods");
 
-    private LauncherFrame display;
 
     /**
      * Starts the launcher.
@@ -26,8 +26,7 @@ public class Launcher {
         }
 
         // Create and display the Launcher
-        display = new LauncherFrame(this);
-        display.setVisible(true);
+        LauncherApplication.start();
     }
 
     public void error(String err) {
@@ -37,7 +36,7 @@ public class Launcher {
     public void error(String err, Exception exception) {
         String fullMessage = err + (exception != null ? (": " + exception.getLocalizedMessage()) : "");
 
-        JOptionPane.showMessageDialog(display, fullMessage, "Cubition Launcher", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, fullMessage, "Cubition Launcher", JOptionPane.ERROR_MESSAGE);
     }
 
 
