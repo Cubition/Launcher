@@ -7,7 +7,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
@@ -18,11 +17,18 @@ import javafx.stage.StageStyle;
 import netscape.javascript.JSObject;
 
 import java.lang.reflect.Field;
+import java.util.Queue;
 
 /**
  * The LauncherFrame is the main GUI portion of the Cubition Launcher.
  */
 public class LauncherApplication extends Application {
+    private WebView webView;
+
+    private Queue<Task<String, Runnable>> queue;
+    private int totalTasks = 0;
+    private int doneTasks = 0;
+
     @Override
     public void start(Stage stage) {
 
@@ -41,7 +47,7 @@ public class LauncherApplication extends Application {
         stage.initStyle(StageStyle.TRANSPARENT);
 
         // Create webview
-        WebView webView = new WebView();
+        webView = new WebView();
         box.getChildren().add(webView);
         webView.setMinSize(scene.getWidth(), scene.getHeight());
         webView.setMaxSize(scene.getWidth(), scene.getHeight());
@@ -108,9 +114,45 @@ public class LauncherApplication extends Application {
     /**
      * Callback methods for the launcher
      */
-    public static class LauncherCallback {
+    public class LauncherCallback {
         public void exit() {
             Platform.exit();
+        }
+
+        public void login(String username, String password) {
+            queue = Launcher.buildQueue();
+            totalTasks = queue.size();
+
+            doneTasks = 1;
+            Thread thread = new Thread(() -> queue.forEach(stringRunnableTask -> {
+                int percent = (int) (((double)doneTasks) / ((double) totalTasks) * 100);
+                System.out.println(percent + "%, " + stringRunnableTask.getKey());
+                updateProgress(percent);
+                updateProgressText(stringRunnableTask.getKey());
+
+                try {
+                    stringRunnableTask.getValue().run();
+                } catch (Exception e) {
+                    Launcher.error("Error while running task", e);
+                    return;
+                }
+
+                doneTasks++;
+            }));
+            thread.setName("Launcher queue manager");
+            thread.start();
+        }
+
+        public void updateProgress(int progress) {
+            Platform.runLater(() -> webView.getEngine().executeScript("progressBar(" + progress + ")"));
+        }
+
+        public void updateProgressText(String progress) {
+            Platform.runLater(() -> webView.getEngine().executeScript("progressContents(\"" + progress + "\")"));
+        }
+
+        public void advanced() {
+            Launcher.error("Coming soon!");
         }
     }
 
