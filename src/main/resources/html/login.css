@@ -24,6 +24,10 @@ html {
     margin-top: 20px;
 }
 
+#bottom-gap {
+    margin-top: 60px;
+}
+
 #rounded-corners {
     background: url(bg.png) no-repeat center center fixed;
     background-size: cover;
@@ -31,6 +35,10 @@ html {
     border: 1px solid #000000;
     border-radius: 20px;
     height: 100%;
+}
+
+#progress-container {
+    display: none;
 }
 
 .input-box {
