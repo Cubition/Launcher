@@ -26,6 +26,7 @@ public class LauncherApplication extends Application {
     private WebView webView;
 
     private Queue<Task<String, Runnable>> queue;
+
     private int totalTasks = 0;
     private int doneTasks = 0;
 
@@ -125,7 +126,7 @@ public class LauncherApplication extends Application {
 
             doneTasks = 1;
             Thread thread = new Thread(() -> queue.forEach(stringRunnableTask -> {
-                int percent = (int) (((double)doneTasks) / ((double) totalTasks) * 100);
+                int percent = (int) (((double) doneTasks) / ((double) totalTasks) * 100);
                 System.out.println(percent + "%, " + stringRunnableTask.getKey());
                 updateProgress(percent);
                 updateProgressText(stringRunnableTask.getKey());
