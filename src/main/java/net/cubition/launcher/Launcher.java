@@ -4,7 +4,6 @@ import javafx.application.Platform;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -17,28 +16,6 @@ public class Launcher {
 
     private File bootstrapDest = new File(destinationRoot, "bootstrap.jar");
     private File modDirDest = new File(destinationRoot, "mods");
-
-    /**
-     * Starts the launcher.
-     */
-    public void start() {
-        // Make sure we have a proper directory structure built
-        if (!modDirDest.exists() && !modDirDest.mkdirs()) {
-            error("Failed to create destination Cubition directory:\n" + modDirDest.getPath());
-            System.exit(-1);
-        }
-
-        // Create and display the Launcher
-        try {
-            LauncherApplication.start();
-        } catch (Exception e) {
-            error("Error while launching Application", e);
-        }
-    }
-
-    public void downloadBootstrap() {
-
-    }
 
     public static void error(String err) {
         error(err, null);
@@ -101,10 +78,27 @@ public class Launcher {
         return taskQueue;
     }
 
-
     public static void main(String[] args) {
         System.out.println("Cubition Launcher v0.1");
         Launcher launcher = new Launcher();
         launcher.start();
+    }
+
+    /**
+     * Starts the launcher.
+     */
+    public void start() {
+        // Make sure we have a proper directory structure built
+        if (!modDirDest.exists() && !modDirDest.mkdirs()) {
+            error("Failed to create destination Cubition directory:\n" + modDirDest.getPath());
+            System.exit(-1);
+        }
+
+        // Create and display the Launcher
+        try {
+            LauncherApplication.start();
+        } catch (Exception e) {
+            error("Error while launching Application", e);
+        }
     }
 }
