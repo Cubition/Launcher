@@ -9,18 +9,19 @@
         <script>
             function login() {
                 $('#progress-container').css('display', 'block');
-                progress = 0;
-                setInterval(function() {
-                    progress += 20;
-                    if (progress > 100) {
-                        java.exit();
-                    }
-                    progressBar(progress);
-                }, 500);
+                var usernameBox = document.getElementById('username');
+                var passwordBox = document.getElementById('password');
+                usernameBox.setAttribute("disabled", "disabled");
+                passwordBox.setAttribute("disabled", "disabled");
+                java.login(usernameBox.value, passwordBox.value);
             }
 
             function progressBar(progress) {
                 $('.progress-bar').css('width', progress+'%').attr('aria-valuenow', progress);
+            }
+
+            function progressContents(contents) {
+                document.getElementById('progress-contents').innerHTML = contents;
             }
         </script>
 
@@ -40,7 +41,7 @@
 
             <!-- Login form -->
             <div align="center">
-                <form style="max-width: 400px"  action="#">
+                <div style="max-width: 400px"  action="#">
                     <div class="form-group">
                         <input id="username" class="form-control input-box" placeholder="Username/Email" />
                     </div>
@@ -48,11 +49,11 @@
                         <input id="password" type="password" class="form-control input-box" placeholder="Password" />
                     </div>
                     <div class="form-group" align="right">
-                        <button type="button" class="btn btn-warning btn-xs" style="color: #000000">Advanced...</button>
+                        <button type="button" class="btn btn-warning btn-xs" onclick="java.advanced(); return false;" style="color: #000000">Advanced...</button>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button class="btn btn-primary" style="color: #000000" onclick="login(); return false;">Login!</button>
                     </div>
-                </form>
+                </div>
             </div>
 
             <!-- Gap between main and bottom -->
@@ -62,7 +63,8 @@
             <div align="center" id="progress-container">
                 <div class="progress" style="width: 400px">
                     <div class="progress-bar progress-bar-striped active" role="progressbar"
-                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0">
+                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0; color: black; white-space: nowrap" id="progress-contents">
+                        Please wait...
                     </div>
                 </div>
             </div>
