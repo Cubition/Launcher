@@ -8,4 +8,8 @@ Currently, it loads a Bootstrap(css) HTML page with a few elements scattered aro
 
 Compiling
 ---------
-Windows - Point the terminal to the directory the source is located in, and run "mvn clean install"
+Windows - Point the terminal to the directory the source is located in, and run "mvn clean install" (assuming you have the necessary software)
+
+Mac-
+
+Linux-
