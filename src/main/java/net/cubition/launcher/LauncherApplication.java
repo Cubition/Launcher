@@ -157,6 +157,10 @@ public class LauncherApplication extends Application {
         }
     }
 
+    public static void main(String[] args) {
+        Launcher.main(args);
+    }
+
     public static class Delta {
         public double x, y;
     }
