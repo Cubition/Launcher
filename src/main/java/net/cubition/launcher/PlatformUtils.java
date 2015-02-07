@@ -13,8 +13,10 @@ public class PlatformUtils {
             return new File(System.getenv("AppData"));
         } else if (os.contains("OS X")) {
             return new File(System.getProperty("user.home") + "/Library/Application Support/");
+        } else if (os.contains("UNIX"));
+            return new File(System.getProperty("user.home")); + "/usr/bin/"
         } else {
             return new File(System.getProperty("user.home"));
-        }
+        }   
     }
 }
